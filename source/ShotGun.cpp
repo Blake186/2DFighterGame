@@ -25,6 +25,16 @@ ShotGun::~ShotGun()
 }
 void ShotGun::Render(void)
 {
+	if (SGD::InputManager::GetInstance()->IsKeyPressed(SGD::Key::R))
+	{
+		m_CollisionRectRender = !m_CollisionRectRender;
+	}
+
+	if (m_CollisionRectRender)
+	{
+		SGD::GraphicsManager::GetInstance()->DrawRectangle(GetRect(), { 255, 255, 0, 0 });
+	}
+	SGD::GraphicsManager::GetInstance()->DrawRectangle(GetRect(), { 255, 255, 0, 0 });
 	if (m_Yusuke->GetTurn())
 	{
 		SGD::GraphicsManager::GetInstance()->DrawTexture(m_hImage, SGD::Point{ GetPosition().x, GetPosition().y }, m_fRotation, SGD::Vector{ m_szSize.width, m_szSize.height });

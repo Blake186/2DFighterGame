@@ -54,7 +54,7 @@ protected:
 	SGD::HAudio KuramaWins;
 	float Timer = 0.0f;
 	bool win = false;
-
+	bool m_CollisionRectRender = false;
 
 };
 

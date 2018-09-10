@@ -24,6 +24,7 @@ KuramaEnergyBeam::~KuramaEnergyBeam()
 
 void KuramaEnergyBeam::Render(void)
 {
+	SGD::GraphicsManager::GetInstance()->DrawRectangle(GetRect(), { 255, 255, 0, 0 });
 	if (m_Kurama->GetTurn())
 	{
 		SGD::GraphicsManager::GetInstance()->DrawTexture(m_hImage, SGD::Point{ GetPosition().x + 90, GetPosition().y }, m_fRotation, SGD::Vector{ m_szSize.width, m_szSize.height });

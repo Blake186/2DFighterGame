@@ -23,6 +23,17 @@ EnergyBall::~EnergyBall()
 
 void EnergyBall::Render(void)
 {
+
+	if (SGD::InputManager::GetInstance()->IsKeyPressed(SGD::Key::R))
+	{
+		m_CollisionRectRender = !m_CollisionRectRender;
+	}
+
+	if (m_CollisionRectRender)
+	{
+		
+	}
+
 	SGD::GraphicsManager::GetInstance()->DrawRectangle(GetRect(), { 255, 255, 0, 0 });
 	if (m_vtVelocity.x > 0)
 	{

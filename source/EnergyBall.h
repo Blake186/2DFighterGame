@@ -24,5 +24,6 @@ public:
 	~EnergyBall();
 private:
 	Yusuke* m_Yusuke;
+	bool m_CollisionRectRender = false;
 };
 

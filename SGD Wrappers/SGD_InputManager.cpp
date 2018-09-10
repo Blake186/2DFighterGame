@@ -1702,7 +1702,7 @@ namespace SGD
 			std::vector< IDPos > ids;
 			ids.reserve( m_vGamepads.size() );
 
-			for( unsigned int i = 0; i < m_vGamepads.size(); i++ )
+			for( int i = 0; i < m_vGamepads.size(); i++ )
 			{
 				if( m_vGamepads[ i ].id.handle == 0 )
 					continue;

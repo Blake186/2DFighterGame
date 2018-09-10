@@ -147,6 +147,15 @@ void Kurama::Render(void)
 		float temp = (m_Health / 150.0f) * 50.0f;
 		float tem2 = (m_SpiritEnergy / 150.0f) * 50.0f;
 
+		if (SGD::InputManager::GetInstance()->IsKeyPressed(SGD::Key::R))
+		{
+			m_CollisionRectRender = !m_CollisionRectRender;
+		}
+
+		if (m_CollisionRectRender)
+		{
+			SGD::GraphicsManager::GetInstance()->DrawRectangle(GetRect(), { 255, 255, 0, 0 });
+		}
 
 		KuramaAnimation[CurrentAnimation]->Render(SGD::Point{ GetPosition().x, GetPosition().y }, 2, {}, Turn);
 		if (Turn)

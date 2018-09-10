@@ -75,6 +75,7 @@ protected:
 	float Timer = 0.0f;
 	int m_score = 0;
 	float TimerShotGun = 0.0f;
+	bool m_CollisionRectRender = false;
 	SGD::HTexture Animation_Image[8];
 	SGD::HAudio SpiritGun;
 	SGD::HAudio ShotGunAudio;

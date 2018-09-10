@@ -199,9 +199,19 @@ void Yusuke::Render(void)
 	// NOT FIXED?
 	float temp = (m_Health / 100.0f) * 50.0f;
 	float tem2 = (m_SpiritEnergy / 100.0f) * 50.0f;
+	if (SGD::InputManager::GetInstance()->IsKeyPressed(SGD::Key::R))
+	{
+		m_CollisionRectRender = !m_CollisionRectRender;
+	}
 
 
+	if (m_CollisionRectRender)
+	{
+		SGD::GraphicsManager::GetInstance()->DrawRectangle(GetRect(), { 255, 255, 0, 0 });
+	}
+	
 	YusukeAnimation[CurrentAnimation]->Render(SGD::Point{ GetPosition().x, GetPosition().y }, 2, {}, Turn);
+	
 	if (Turn)
 	{
 		SGD::GraphicsManager::GetInstance()->DrawRectangle(SGD::Rectangle(SGD::Point{ GetPosition().x + 20, GetPosition().y - 40 }, SGD::Size{ temp, 10 }), SGD::Color{ 255, 255, 0, 0 }, SGD::Color{ 0, 0, 0, 0 }, 2);
@@ -213,7 +223,7 @@ void Yusuke::Render(void)
 		SGD::GraphicsManager::GetInstance()->DrawRectangle(SGD::Rectangle(SGD::Point{ GetPosition().x - 20, GetPosition().y - 40 }, SGD::Size{ temp, 10 }), SGD::Color{ 255, 255, 0, 0 }, SGD::Color{ 0, 0, 0, 0 }, 2);
 		SGD::GraphicsManager::GetInstance()->DrawRectangle(SGD::Rectangle(SGD::Point{ GetPosition().x - 20, GetPosition().y - 30 }, SGD::Size{ tem2, 10 }), SGD::Color{ 255, 0, 0, 255 }, SGD::Color{ 0, 0, 0, 0 }, 2);
 	}
-
+	
 }
 
 void Yusuke::InitializeAnimation(void)

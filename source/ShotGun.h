@@ -25,5 +25,6 @@ public:
 
 private:
 	Yusuke* m_Yusuke;
+	bool m_CollisionRectRender = false;
 };
 
