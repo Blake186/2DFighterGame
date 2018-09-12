@@ -12,13 +12,14 @@
 #include "../SGD Wrappers/SGD_Handle.h"		// HTexture type
 #include "../SGD Wrappers/SGD_Geometry.h"	// Point & Vector type
 
-
+static float Gravity = 9.8f;
 //*********************************************************************//
 // Entity class
 //	- parent class of all game entities, stores the shared data members
 //	- velocity-based movement
 class Entity : public IEntity
 {
+
 	//*****************************************************************//
 	// Destructor MUST be virtual for upcasted objects
 	//		Entity* ptr = new Ship;

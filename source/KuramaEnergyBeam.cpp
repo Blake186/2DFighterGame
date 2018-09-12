@@ -25,31 +25,34 @@ KuramaEnergyBeam::~KuramaEnergyBeam()
 void KuramaEnergyBeam::Render(void)
 {
 	SGD::GraphicsManager::GetInstance()->DrawRectangle(GetRect(), { 255, 255, 0, 0 });
-	if (m_Kurama->GetTurn())
+	if (m_vtVelocity.x > 0)
 	{
-		SGD::GraphicsManager::GetInstance()->DrawTexture(m_hImage, SGD::Point{ GetPosition().x + 90, GetPosition().y }, m_fRotation, SGD::Vector{ m_szSize.width, m_szSize.height });
+		SGD::GraphicsManager::GetInstance()->DrawTexture(m_hImage, SGD::Point{ GetPosition().x , GetPosition().y }, m_fRotation, SGD::Vector{ m_szSize.width /3, m_szSize.height /3 });
 	}
-	else if (!m_Kurama->GetTurn())
-		SGD::GraphicsManager::GetInstance()->DrawTexture(m_hImage, SGD::Point{ GetPosition().x - 10, GetPosition().y }, m_fRotation / -2, SGD::Vector{ m_szSize.width, m_szSize.height }, {}, SGD::Size{ -1.0, 1.0 });
+	else
+	{
+		SGD::GraphicsManager::GetInstance()->DrawTexture(m_hImage, SGD::Point{ GetPosition().x, GetPosition().y }, m_fRotation / -2, SGD::Vector{ m_szSize.width / 3, m_szSize.height / 3 });
+
+	}
 }
 // what this will do is Update the the Energyball 
 void KuramaEnergyBeam::Update(float elapsedTime)
 {
-	if (!m_Kurama->GetTurn())
+	/*if (!m_Kurama->GetTurn())
 	{
 		SGD::Vector newVelcoity = { -1, 0 };
 		newVelcoity.x *= 200 + m_Kurama->GetSpeed();
 		newVelcoity.y *= 200 + m_Kurama->GetSpeed();
 		SetVelocity(newVelcoity);
-	}
-	Entity::Update(elapsedTime);
-	if (m_ptPosition.x < 10)
+	}*/
+	//Entity::Update(elapsedTime);
+	if (m_ptPosition.x < 0)
 	{
 		DestroyEntityMessage* destroy = new DestroyEntityMessage{ this };
 		destroy->QueueMessage();
 		destroy = nullptr;
 	}
-	if (m_ptPosition.x > 820)
+	if (m_ptPosition.x > 1500)
 	{
 		DestroyEntityMessage* destroy = new DestroyEntityMessage{ this };
 		destroy->QueueMessage();
@@ -59,7 +62,7 @@ void KuramaEnergyBeam::Update(float elapsedTime)
 
 SGD::Rectangle KuramaEnergyBeam::GetRect(void) const
 {
-	return SGD::Rectangle(SGD::Point{ GetPosition().x + 90, GetPosition().y }, SGD::Size{ m_szSize.width, m_szSize.height });
+	return SGD::Rectangle(SGD::Point{ GetPosition().x, GetPosition().y }, SGD::Size{ m_szSize.width / 3, m_szSize.height / 3 });
 }
 void KuramaEnergyBeam::HandleCollision(const IEntity* pOther)
 {

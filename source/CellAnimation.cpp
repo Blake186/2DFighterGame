@@ -148,3 +148,10 @@ void CellAnimation::Restart(bool looping, float speed)
 	m_bPlaying = true;
 	m_bFinished = false;
 }
+
+void CellAnimation::SetCurrentFrame(int frame)
+{
+
+	m_nCurrFrame = frame;
+
+}

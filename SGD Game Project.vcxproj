@@ -85,6 +85,7 @@
     <ClCompile Include="resource\TinyXML\tinyxml.cpp" />
     <ClCompile Include="resource\TinyXML\tinyxmlerror.cpp" />
     <ClCompile Include="resource\TinyXML\tinyxmlparser.cpp" />
+    <ClCompile Include="SetupCharacters.cpp" />
     <ClCompile Include="SGD Wrappers\SGD_AudioManager.cpp" />
     <ClCompile Include="SGD Wrappers\SGD_Event.cpp" />
     <ClCompile Include="SGD Wrappers\SGD_EventManager.cpp" />
@@ -108,6 +109,7 @@
     <ClCompile Include="source\EntityManager.cpp" />
     <ClCompile Include="source\Game.cpp" />
     <ClCompile Include="source\GameplayState.cpp" />
+    <ClCompile Include="source\Hiei.cpp" />
     <ClCompile Include="source\InstructionState.cpp" />
     <ClCompile Include="source\IntroScreenState.cpp" />
     <ClCompile Include="source\Kurama.cpp" />
@@ -121,6 +123,7 @@
   <ItemGroup>
     <ClInclude Include="resource\TinyXML\tinystr.h" />
     <ClInclude Include="resource\TinyXML\tinyxml.h" />
+    <ClInclude Include="SetupCharacters.h" />
     <ClInclude Include="SGD Wrappers\SGD_AudioManager.h" />
     <ClInclude Include="SGD Wrappers\SGD_Color.h" />
     <ClInclude Include="SGD Wrappers\SGD_Declarations.h" />
@@ -151,6 +154,7 @@
     <ClInclude Include="source\EntityManager.h" />
     <ClInclude Include="source\Game.h" />
     <ClInclude Include="source\GameplayState.h" />
+    <ClInclude Include="source\Hiei.h" />
     <ClInclude Include="source\IEntity.h" />
     <ClInclude Include="source\IGameState.h" />
     <ClInclude Include="source\InstructionState.h" />

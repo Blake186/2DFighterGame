@@ -19,10 +19,20 @@
 #include "../SGD Wrappers/SGD_IListener.h"
 #include "../SGD Wrappers/SGD_EventManager.h"
 #include "Kurama.h"
-
+#include <math.h>
+#include <time.h>
+#include <ctime>
+#include <cstdlib>
+#include <cassert>
+//#include <vld.h>
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+static int GroundHeight = 400;
+static float MaxHeight = 20.0f;
 Yusuke::Yusuke()
 {
 	SGD::IListener::RegisterForEvent("YUSUKE_HIT");
+	
 }
 
 
@@ -76,7 +86,7 @@ void Yusuke::Update(float elapsedTime)
 				CurrentAnimation = 1;
 
 				//m_speed += m_aceleration + elapsedTime;
-				m_vtVelocity.x += 0.2f;
+				m_vtVelocity.x += 0.1f;
 				Turn = true;
 			}
 
@@ -88,7 +98,7 @@ void Yusuke::Update(float elapsedTime)
 			{
 				CurrentAnimation = 1;
 				//m_speed += m_aceleration + elapsedTime;
-				m_vtVelocity.x -= 0.2f;
+				m_vtVelocity.x -= 0.1f;
 				Turn = false;
 			}
 		}
@@ -106,8 +116,18 @@ void Yusuke::Update(float elapsedTime)
 		// What this else if Does when The Keys C or Z are released Yusuke Will go back to his Idle animation 
 		else if (SGD::InputManager::GetInstance()->IsKeyReleased(SGD::Key::C) || SGD::InputManager::GetInstance()->IsKeyReleased(SGD::Key::Z) || SGD::InputManager::GetInstance()->IsDPadReleased(0, SGD::DPad::Left) || SGD::InputManager::GetInstance()->IsDPadReleased(0, SGD::DPad::Right) || SGD::InputManager::GetInstance()->IsKeyReleased(SGD::Key::X))
 		{
-			CurrentAnimation = 0;
-			m_vtVelocity.x = 0;
+			if (IsJumping)
+			{
+				CurrentAnimation = 4;
+				m_vtVelocity.x = 0;
+			}
+			else
+			{
+				CurrentAnimation = 0;
+				m_vtVelocity.x = 0;
+
+			}
+			
 		}
 		if (SGD::InputManager::GetInstance()->IsKeyPressed(SGD::Key::V) && m_SpiritEnergy > 25 && Timer <= 0 || SGD::InputManager::GetInstance()->IsButtonPressed(0, 1) && m_SpiritEnergy > 25 && Timer <= 0.0f)
 		{
@@ -146,7 +166,9 @@ void Yusuke::Update(float elapsedTime)
 
 			}
 			YusukeAnimation[CurrentAnimation]->Restart(false, 5.0);
-
+			m_vtVelocity.y -= 7 * m_aceleration;
+			IsJumping = true;
+			//onGround = IsOnGround();
 		}
 
 		// What this is doing is everytime an animation is set it will update the animation and it will play it, in it entirty
@@ -185,12 +207,51 @@ void Yusuke::Update(float elapsedTime)
 			Timer -= elapsedTime;
 		if (TimerShotGun > 0)
 			TimerShotGun -= elapsedTime;
-
-		YusukeAnimation[CurrentAnimation]->Update(elapsedTime);
-		Entity::Update(elapsedTime);
+		if (IsJumping)
+		{
+			
+			YusukeAnimation[4]->SetCurrentFrame(2);
+		}
+		else
+		{
+			YusukeAnimation[CurrentAnimation]->Update(elapsedTime);
+		}
+		
+		// onGround = IsOnGround();
+		UpdatePosition(elapsedTime);
+		//Entity::Update(elapsedTime);
 		StayinWorldCollision();
 
 	}
+}
+
+
+void Yusuke::UpdatePosition(float _elapsedtime)
+{
+	
+	/*	if (m_ptPosition.y != GroundHeight)
+		{
+			m_vtVelocity.y--;
+			if (m_vtVelocity.y < Gravity)
+			{
+				m_vtVelocity.y -= fmin(m_vtVelocity.y, Gravity);
+				
+			}
+
+		}*/
+
+	if (m_ptPosition.y <= MaxHeight)
+		m_vtVelocity.y += Gravity + m_aceleration * _elapsedtime;
+
+		if (m_ptPosition.y > GroundHeight)
+		{
+			m_ptPosition.y = 400;
+			m_vtVelocity.y = 0;
+			IsJumping = false;
+			YusukeAnimation[CurrentAnimation]->Update(_elapsedtime);
+		}
+		m_vtVelocity.y += m_aceleration * _elapsedtime;
+ 		m_ptPosition += m_vtVelocity * _elapsedtime;
 }
 
 void Yusuke::Render(void)
@@ -209,9 +270,9 @@ void Yusuke::Render(void)
 	{
 		SGD::GraphicsManager::GetInstance()->DrawRectangle(GetRect(), { 255, 255, 0, 0 });
 	}
-	
+
 	YusukeAnimation[CurrentAnimation]->Render(SGD::Point{ GetPosition().x, GetPosition().y }, 2, {}, Turn);
-	
+
 	if (Turn)
 	{
 		SGD::GraphicsManager::GetInstance()->DrawRectangle(SGD::Rectangle(SGD::Point{ GetPosition().x + 20, GetPosition().y - 40 }, SGD::Size{ temp, 10 }), SGD::Color{ 255, 255, 0, 0 }, SGD::Color{ 0, 0, 0, 0 }, 2);
@@ -223,7 +284,7 @@ void Yusuke::Render(void)
 		SGD::GraphicsManager::GetInstance()->DrawRectangle(SGD::Rectangle(SGD::Point{ GetPosition().x - 20, GetPosition().y - 40 }, SGD::Size{ temp, 10 }), SGD::Color{ 255, 255, 0, 0 }, SGD::Color{ 0, 0, 0, 0 }, 2);
 		SGD::GraphicsManager::GetInstance()->DrawRectangle(SGD::Rectangle(SGD::Point{ GetPosition().x - 20, GetPosition().y - 30 }, SGD::Size{ tem2, 10 }), SGD::Color{ 255, 0, 0, 255 }, SGD::Color{ 0, 0, 0, 0 }, 2);
 	}
-	
+
 }
 
 void Yusuke::InitializeAnimation(void)
@@ -330,6 +391,20 @@ void Yusuke::StayinWorldCollision(void)
 	{
 		m_ptPosition.x = 950;
 	}
+
+
+}
+
+bool Yusuke::IsOnGround()
+{
+
+	if (m_ptPosition.y <= GroundHeight)
+	{
+		m_ptPosition.y = GroundHeight;
+		return true;
+	}
+
+	return false;
 
 
 }

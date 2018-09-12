@@ -138,6 +138,10 @@
     </ClCompile>
     <ClCompile Include="source\OptionsState.cpp" />
     <ClCompile Include="source\IntroScreenState.cpp" />
+    <ClCompile Include="source\Hiei.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="SetupCharacters.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SGD Wrappers\SGD_Declarations.h">
@@ -261,5 +265,9 @@
       <Filter>Game States\Miscellaneous</Filter>
     </ClInclude>
     <ClInclude Include="source\IntroScreenState.h" />
+    <ClInclude Include="source\Hiei.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="SetupCharacters.h" />
   </ItemGroup>
 </Project>

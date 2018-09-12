@@ -1,25 +1,18 @@
-//*********************************************************************//
-//	File:		Yusuke.h
-//	Author:		Blake Bergstrom
-//	Course:		Structure Of Game Design
-//	Purpose:	To Make Yusuke and set and make variables 
-//
-//*********************************************************************//
 #pragma once
 #include "Entity.h"
 #include "../SGD Wrappers/SGD_IListener.h"
 #include "../SGD Wrappers/SGD_AudioManager.h"
 #include "Kurama.h"
 class CellAnimation;
-class Yusuke : public Entity, public SGD::IListener
+class Hiei : public Entity, public SGD::IListener
 {
 public:
 
-	Yusuke();
-	~Yusuke();
+	Hiei();
+	~Hiei();
 	// Update and Render will Show and Mover Yusuke on the screen
 	void Update(float elapsedTime);
-	void	Render(void);
+	void Render(void);
 
 	// Mutators for Yusukes Health And Spirit Energy
 	void SetHealth(float _health) { m_Health = _health; }
@@ -28,18 +21,18 @@ public:
 	// Mutator for Yusukes speed and Acceleration
 	void SetSpeed(float _Speed) { m_speed = _Speed; }
 	void SetAcceleration(float _acceleraion) { m_aceleration = _acceleraion; }
-	void SetSpiritGun(SGD::HAudio _audio) { SpiritGun = _audio; }
-	void SetShotGunAudio(SGD::HAudio _audio) { ShotGunAudio = _audio; }
+	//void SetSpiritGun(SGD::HAudio _audio) { SpiritGun = _audio; }
+	//void SetShotGunAudio(SGD::HAudio _audio) { ShotGunAudio = _audio; }
 	void HandleEvent(const SGD::Event* pEvent);
 	// Acsessors for Yusukes Speed and Acceleration
 	float GetSpeed(void) { return m_speed; }
 	float GetAceleration(void) { return m_aceleration; }
 
 	// Accsessors for Yusukes Health and SpiritEnergy
-	float GetYusukesHealth(void) const { return m_Health; }
-	float GetYusukesSpiritEnergy(void) const { return m_SpiritEnergy; }
-	SGD::HAudio GetSpiritGun(void) { return SpiritGun; }
-	SGD::HAudio GetShotGunAudio(void) { return ShotGunAudio; }
+	float GetHieiHealth(void) const { return m_Health; }
+	float GetHieiSpiritEnergy(void) const { return m_SpiritEnergy; }
+	//SGD::HAudio GetSpiritGun(void) { return SpiritGun; }
+	//SGD::HAudio GetShotGunAudio(void) { return ShotGunAudio; }
 	int GetScore() { return m_score; }
 	void SetScore(int _score) { m_score = _score; }
 	bool GetTurn(void) const { return Turn; }
@@ -47,17 +40,12 @@ public:
 	void SetWinlose(bool _windLose) { WinLose = _windLose; }
 	//SGD::HAudio GetHurt(void) { return SpiritGun; }
 	SGD::HAudio GetHurtAudio(void) { return GetHurt; }
-	SGD::HAudio GetWinAudio(void) { return YusukeWins; }
+	//SGD::HAudio GetWinAudio(void) { return YusukeWins; }
 	void SetGetHurtAudio(SGD::HAudio _audio) { GetHurt = _audio; }
-	void SetGetWinAudio(SGD::HAudio _audio ) { YusukeWins = _audio; }
-	void SetPosition(SGD::Point _pos) { m_ptPosition = _pos; }
-	SGD::Point		GetPosition(void) const { return m_ptPosition; }
-	SGD::Vector		GetVelocity(void) const { return m_vtVelocity; }
-	void			SetVelocity(SGD::Vector	vel) { m_vtVelocity = vel; }
+	//void SetGetWinAudio(SGD::HAudio _audio) { YusukeWins = _audio; }
 	// InitializeAnimation Will set all of yusukes Animations at run time
 	void InitializeAnimation(void);
-	void UpdatePosition(float _elapsedtime);
-	bool IsOnGround();
+
 	// Get rect is gong to be used for collision rectangle.
 	SGD::Rectangle GetRect(void)	const;
 
@@ -70,7 +58,7 @@ protected:
 	// what this is, is the speed that yusuke will be walking with
 	float m_speed = 100.0f;
 	// what this is, is what yusuke's exceration would be when fireing a Spirit gun 
-	float m_aceleration = 0.005f;
+	float m_aceleration = 60.0f;
 	// this is a CellAnimation Array that holds all of Yusukes Animations 
 	CellAnimation* YusukeAnimation[10];
 	// this will determine what animation you will be on at a gvin time.
@@ -82,17 +70,13 @@ protected:
 	float TimerShotGun = 0.0f;
 	bool m_CollisionRectRender = false;
 	SGD::HTexture Animation_Image[8];
-	SGD::HAudio SpiritGun;
-	SGD::HAudio ShotGunAudio;
+	//SGD::HAudio SpiritGun;
+	//SGD::HAudio ShotGunAudio;
 	SGD::HAudio GetHurt;
-	SGD::HAudio YusukeWins;
+	SGD::HAudio HieiWins;
 	bool WinLose = false;
-	SGD::HAudio KuramaWins = SGD::AudioManager::GetInstance()->LoadAudio(L"resource/audio/Bab_Kurama Wins.wav");
+	//SGD::HAudio KuramaWins = SGD::AudioManager::GetInstance()->LoadAudio(L"resource/audio/Bab_Kurama Wins.wav");
 	bool CheatOn = false;
 	SGD::Point		m_ptPosition = SGD::Point{ 0, 0 };	// 2D position
 	SGD::Vector		m_vtVelocity = SGD::Vector{ 0, 0 };	// 2D velocity
-	bool onGround = false;
-	SGD::Point		m_ptGround = SGD::Point{ 0, 400 };
-	bool IsJumping = false;
 };
-

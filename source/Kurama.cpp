@@ -106,14 +106,14 @@ void Kurama::Update(float elapsedTime)
 					CurrentAnimation = 3;
 					KuramaAnimation[CurrentAnimation]->Restart(false, 5.0);
 
-					m_SpiritEnergy -= 25.0f;
+					//m_SpiritEnergy -= 25.0f;
 
 				}
 				//Timer = 3.0f;
 			}
 
 			SetVelocity(EnemyDistance);
-			Entity::Update(elapsedTime);
+			//Entity::Update(elapsedTime);
 			StayinWorldCollision();
 			KuramaAnimation[CurrentAnimation]->Update(elapsedTime);
 			if (KuramaAnimation[3]->GetCurrentFrame() == 1 && Timer <= 0.0f)

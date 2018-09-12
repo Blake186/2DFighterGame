@@ -48,7 +48,7 @@ public:
 	bool	IsPlaying	( void ) const	{	return m_bPlaying;		}
 	bool	IsFinished	( void ) const	{	return m_bFinished;		}
  	bool	IsLooping	( void ) const	{	return m_bLooping;		}
-
+	void    SetCurrentFrame(int frame);
 	void	NextFrame(void) { m_fTimeWaited += 1.f; }
 private:
 	//*******************************************************************
